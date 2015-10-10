@@ -10,5 +10,9 @@
     {
         "author": "Joel Chartier",
         "text": "My first comment"
+    },
+    {
+        "author": "Joe Carter",
+        "text": "Comment to server via ajax"
     }
 ]

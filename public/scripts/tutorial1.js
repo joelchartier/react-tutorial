@@ -17,6 +17,23 @@ var CommentBox = React.createClass({
     });
   },
 
+  handleCommentSubmit: function (comment) {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      type: 'POST',
+      data: comment,
+      success: function (data) {
+        this.setState({
+          data: data
+        });
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
   getInitialState: function () {
       return {
         data: []
@@ -33,22 +50,27 @@ var CommentBox = React.createClass({
     return (
       <div className="commentBox">
         <h1>Comments</h1>
-        <CommentList data={ this.state.data}/>
-        <CommentForm />
+        <CommentList data={ this.state.data} />
+        <CommentForm onCommentSubmit={ this.handleCommentSubmit } />
       </div>
     );
   }
 });
 
 var CommentList = React.createClass({
-  render: function () {
-    var commentNodes = this.props.data.map(function (comment) {
+
+  buildCommentNodes: function () {
+    return this.props.data.map(function (comment) {
       return (
         <Comment author={ comment.author }>
           { comment.text }
         </Comment>
       );
     });
+  },
+
+  render: function () {
+    var commentNodes = this.buildCommentNodes();
 
     return (
       <div className="commentList">
@@ -77,11 +99,41 @@ var Comment = React.createClass({
 });
 
 var CommentForm = React.createClass({
+
+  clearForm: function () {
+    this.refs.author.value = '';
+    this.refs.text.value = '';
+  },
+
+  buildComment: function () {
+    var author = this.refs.author.value.trim();
+    var text = this.refs.text.value.trim();
+
+    if (!author || !text) {
+      return;
+    }
+
+    return {
+        author: author,
+        text: text
+    };
+  },
+
+  handleSubmit: function (e) {
+    e.preventDefault();
+
+    var comment = this.buildComment();
+    this.props.onCommentSubmit(comment);
+    this.clearForm();
+  },
+
   render: function () {
     return (
-      <div className="commentForm">
-        Hello, world! I am a CommentForm.
-      </div>
+      <form className="commentForm" onSubmit={ this.handleSubmit }>
+        <input type="text" placeholder="Your name" ref="author" />
+        <input type="text" placeholder="Say something..." ref="text" />
+        <input type="submit" value="Post" />
+      </form>
     );
   }
 });
