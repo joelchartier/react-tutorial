@@ -15,45 +15,6 @@ npm install
 node server.js
 ```
 
-### Python
-
-```sh
-pip install -r requirements.txt
-python server.py
-```
-
-### Haskell
-
-```sh
-cabal sandbox init
-cabal install --only-dependencies
-ghc Server.hs
-./Server
-```
-
-### Ruby
-```sh
-ruby server.rb
-```
-
-### PHP
-```sh
-php server.php
-```
-
-### Go
-```sh
-go run server.go
-```
-
-### Lua
-
-```sh
-go get github.com/xyproto/algernon
-# or brew install algernon
-algernon server.lua
-```
-
 And visit <http://localhost:3000/>. Try opening multiple tabs!
 
 ## Changing the port

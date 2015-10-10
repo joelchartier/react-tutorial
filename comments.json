@@ -6,5 +6,9 @@
     {
         "author": "Paul O’Shannessy",
         "text": "React is *great*!"
+    },
+    {
+        "author": "Joel Chartier",
+        "text": "My first comment"
     }
 ]

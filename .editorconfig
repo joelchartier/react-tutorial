@@ -9,9 +9,5 @@ indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{js,rb,css,html}]
+[*.{js,css,html}]
 indent_size = 2
-
-[*.go]
-indent_size = 8
-indent_style = tab
